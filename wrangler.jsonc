@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "yard-house-studio",
+  "compatibility_date": "2026-05-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      // Self-reference service binding — service name must match worker name.
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "yard-house-studio"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "yard-house-studio-opennext-cache"
+    }
+  ],
+  "images": {
+    "binding": "IMAGES"
+  },
+  // Public, non-secret env vars. Secrets (anon/service keys, revalidate secret)
+  // are set via `wrangler secret put` after the first deploy.
+  "vars": {
+    // NEXT_PUBLIC_SUPABASE_URL is configured per environment.
+  }
+}

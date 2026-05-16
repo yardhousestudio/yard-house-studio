@@ -1,26 +1,71 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Palette — "Craig & Rose" (alternate, hex values are estimates pending real
+     swatch comparison). To revert to Studio Cream defaults, swap the block
+     below with the values in the comment after this @theme.
+  */
+  --color-page: #FFFFFF;        /* white (was Isabeline #ECE2CB) — testing */
+  --color-surface: #FAF8F3;     /* warm off-white — alternating section rhythm */
+  --color-page-outer: #C8BB9F;  /* Hemp Beige — outside content frame */
+  --color-ink: #1A1A1A;         /* unchanged — text contrast */
+  --color-ink-2: #4A4339;       /* warm dark grey */
+  --color-label: #615950;       /* Tintern Stone, darkened to hit AA on cream */
+  --color-muted: #A89E8B;       /* Tintern Stone mid — display numbers register */
+  --color-divider: #D8D1C5;     /* Tintern Stone, faded */
+  --color-footer: #C8BB9F;      /* Hemp Beige */
+  --color-dark: #4A4A2F;        /* Lucienne Olive, deeper — AA headroom for cream */
+  --color-on-dark: #FFFFFF;     /* pure white on olive — testing */
+
+  /* --- Studio Cream (original) — paste back to revert ---
+  --color-page: #FAFAF7;
+  --color-page-outer: #EFEEE7;
+  --color-ink: #1A1A1A;
+  --color-ink-2: #666666;
+  --color-label: #888888;
+  --color-muted: #CCCCCC;
+  --color-divider: #E0E0E0;
+  --color-footer: #F0F0ED;
+  --color-dark: #1A1A1A;
+  --color-on-dark: #FFFFFF;
+  ---------------------------------------------------- */
+
+  /* Type families — wired to next/font CSS variables set in app/layout.tsx */
+  --font-brand: var(--font-brand-google), 'Instrument Serif', serif;
+  --font-display: var(--font-display-google), 'DM Serif Display', serif;
+  --font-body: var(--font-body-google), 'Inter', system-ui, sans-serif;
+
+  /* Type scale (desktop → mobile via clamp) */
+  --text-hero: clamp(2.5rem, 5vw + 1rem, 4.25rem);
+  --text-section: clamp(1.75rem, 2vw + 1rem, 2.25rem);
+  --text-card-title: 1.375rem;
+  --text-card-number: 3.5rem;
+  --text-body: 0.9375rem;
+  --text-subtitle: 1rem;
+  --text-small: 0.875rem;
+  --text-label: 0.75rem;
+
+  /* Spacing rhythm */
+  --space-section-y: 5rem;
+  --space-section-x: 4rem;
+
+  /* Content frame — used by `max-w-content` everywhere. Tweak here, not per block. */
+  --max-width-content: 1140px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-page-outer);
+  color: var(--color-ink-2);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
 }
