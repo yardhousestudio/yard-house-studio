@@ -1,6 +1,6 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
-import r2IncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/r2-incremental-cache";
 
-export default defineCloudflareConfig({
-  incrementalCache: r2IncrementalCache,
-});
+// No incremental cache configured — pages render fresh from Supabase per
+// request. Fine at launch scale. To add ISR persistence later, wire an
+// R2-backed incrementalCache here and re-add the R2 binding in wrangler.jsonc.
+export default defineCloudflareConfig({});
