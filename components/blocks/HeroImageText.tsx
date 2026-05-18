@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Cta, hasCta } from "./Cta";
 
 type Props = {
   anchorId?: string;
@@ -6,9 +7,23 @@ type Props = {
   imageAlt: string;
   headline: string;
   subtitle: string;
+  primaryCtaLabel?: string;
+  primaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
 };
 
-export function HeroImageText({ anchorId, image, imageAlt, headline, subtitle }: Props) {
+export function HeroImageText({
+  anchorId,
+  image,
+  imageAlt,
+  headline,
+  subtitle,
+  primaryCtaLabel = "",
+  primaryCtaHref = "",
+  secondaryCtaLabel = "",
+  secondaryCtaHref = "",
+}: Props) {
   return (
     <section id={anchorId} className="bg-surface">
       <div className="relative w-full h-[420px] md:h-[560px]">
@@ -30,6 +45,20 @@ export function HeroImageText({ anchorId, image, imageAlt, headline, subtitle }:
           <p className="font-body text-subtitle text-ink-secondary max-w-[620px] mt-6 leading-relaxed">
             {subtitle}
           </p>
+          {hasCta(primaryCtaLabel, secondaryCtaLabel) && (
+            <div className="flex flex-wrap gap-3 mt-8">
+              <Cta
+                label={primaryCtaLabel}
+                href={primaryCtaHref}
+                variant="primary"
+              />
+              <Cta
+                label={secondaryCtaLabel}
+                href={secondaryCtaHref}
+                variant="secondary"
+              />
+            </div>
+          )}
         </div>
       </div>
     </section>

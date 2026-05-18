@@ -23,6 +23,10 @@ export const componentSchemas: Record<string, ComponentSchema> = {
       { key: "imageAlt", label: "Image alt text", type: "text" },
       { key: "headline", label: "Headline", type: "textarea" },
       { key: "subtitle", label: "Subtitle", type: "textarea" },
+      { key: "primaryCtaLabel", label: "Primary button label (blank = hidden)", type: "text" },
+      { key: "primaryCtaHref", label: "Primary button link", type: "text" },
+      { key: "secondaryCtaLabel", label: "Secondary button label (blank = hidden)", type: "text" },
+      { key: "secondaryCtaHref", label: "Secondary button link", type: "text" },
     ],
     defaults: {
       image: "",
@@ -31,6 +35,10 @@ export const componentSchemas: Record<string, ComponentSchema> = {
         "Thoughtful property improvement for homes that deserve more care than a quick fix.",
       subtitle:
         "A premium Edinburgh studio combining practical hands-on capability with strong spatial judgement, taste, and sensitivity to period homes.",
+      primaryCtaLabel: "Get in touch",
+      primaryCtaHref: "#contact",
+      secondaryCtaLabel: "Our services",
+      secondaryCtaHref: "#services",
     },
   },
 
@@ -162,6 +170,8 @@ export const componentSchemas: Record<string, ComponentSchema> = {
           },
         ],
       },
+      { key: "ctaLabel", label: "Button label (blank = hidden)", type: "text" },
+      { key: "ctaHref", label: "Button link", type: "text" },
     ],
     defaults: {
       label: "Contact",
@@ -174,6 +184,8 @@ export const componentSchemas: Record<string, ComponentSchema> = {
         { label: "Phone", value: "${PHONE}", type: "phone" },
         { label: "Web", value: "${SITE_URL}", type: "text" },
       ],
+      ctaLabel: "Send us an enquiry",
+      ctaHref: "mailto:${SUPPORT_EMAIL}",
     },
   },
 

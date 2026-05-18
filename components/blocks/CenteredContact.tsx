@@ -1,3 +1,5 @@
+import { Cta } from "./Cta";
+
 type ContactItem = {
   label: string;
   value: string;
@@ -11,6 +13,8 @@ type Props = {
   subtitle: string;
   anchor: string;
   items: ContactItem[];
+  ctaLabel?: string;
+  ctaHref?: string;
 };
 
 function hrefFor(item: ContactItem): string | undefined {
@@ -25,6 +29,8 @@ export function CenteredContact({
   title,
   subtitle,
   items,
+  ctaLabel = "",
+  ctaHref = "",
 }: Props) {
   return (
     <section
@@ -39,6 +45,11 @@ export function CenteredContact({
         <p className="font-body text-subtitle text-ink-secondary max-w-[640px] mx-auto mt-4 leading-relaxed">
           {subtitle}
         </p>
+        {ctaLabel.trim() && (
+          <div className="mt-8 flex justify-center">
+            <Cta label={ctaLabel} href={ctaHref} variant="primary" />
+          </div>
+        )}
         <ul className="flex flex-col gap-3 mt-12">
           {items.map((item, i) => {
             const href = hrefFor(item);

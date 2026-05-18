@@ -12,6 +12,7 @@ export const THEME_TOKENS = [
   { key: "ink-muted", label: "Ink muted", role: "Decorative display numbers" },
   { key: "on-dark", label: "On dark", role: "Text on dark sections" },
   { key: "divider", label: "Divider", role: "Borders, rules, dividers" },
+  { key: "accent", label: "Accent", role: "CTA buttons / accent" },
 ] as const;
 
 // Fallback values — mirror the @theme block in app/globals.css.
@@ -25,6 +26,7 @@ export const DEFAULT_THEME: ThemeColors = {
   "ink-muted": "#A89E8B",
   "on-dark": "#FFFFFF",
   divider: "#D8D1C5",
+  accent: "#AC4B22",
 };
 
 // Build the `{ "--color-page": "#..." }` map for an inline style on <html>.

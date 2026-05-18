@@ -25,6 +25,7 @@ insert into public.theme (id, colors) values (1, '{
   "ink-secondary": "#4A4339",
   "ink-muted": "#A89E8B",
   "on-dark": "#FFFFFF",
-  "divider": "#D8D1C5"
+  "divider": "#D8D1C5",
+  "accent": "#AC4B22"
 }'::jsonb)
 on conflict (id) do nothing;
