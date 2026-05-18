@@ -29,7 +29,7 @@ export function CenteredContact({
   return (
     <section
       id={anchorId}
-      className="bg-surface py-[var(--space-section-y)]"
+      className="bg-page py-[var(--space-section-y)]"
     >
       <div className="mx-auto max-w-content px-6 md:px-8 lg:px-16 text-center">
         <p className="font-body text-label uppercase tracking-[0.05em] font-medium text-ink-secondary">
