@@ -10,7 +10,7 @@ type Props = {
 
 export function HeroImageText({ anchorId, image, imageAlt, headline, subtitle }: Props) {
   return (
-    <section id={anchorId} className="bg-page">
+    <section id={anchorId} className="bg-surface">
       <div className="relative w-full h-[420px] md:h-[560px]">
         <Image
           src={image}
