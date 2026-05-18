@@ -20,7 +20,7 @@ export async function SiteHeader({ sticky = true, withBlur = true }: Props) {
   const cta = data?.cta_button ?? null;
 
   const positionClass = sticky ? "sticky top-0" : "relative";
-  const blurClass = withBlur ? "backdrop-blur-md bg-page/80" : "bg-page";
+  const blurClass = withBlur ? "backdrop-blur-md bg-surface/80" : "bg-surface";
 
   return (
     <header className={`${positionClass} z-50 ${blurClass} border-b border-divider`}>
