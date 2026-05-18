@@ -30,13 +30,13 @@ export function Sidebar({ email }: { email: string }) {
         <p className="font-brand italic text-[1.25rem] text-ink leading-none">
           Yard House Studio
         </p>
-        <p className="font-body text-label uppercase tracking-[0.08em] text-ink-soft mt-1.5">
+        <p className="font-body text-label uppercase tracking-[0.08em] text-ink-secondary mt-1.5">
           Admin
         </p>
       </div>
 
       <nav className="flex-1 px-3 py-4 flex flex-col gap-0.5">
-        <p className="font-body text-label uppercase tracking-[0.08em] text-ink-soft px-2.5 pb-1.5">
+        <p className="font-body text-label uppercase tracking-[0.08em] text-ink-secondary px-2.5 pb-1.5">
           Content
         </p>
         {NAV.map((item) => {
@@ -52,7 +52,7 @@ export function Sidebar({ email }: { email: string }) {
               className={`flex items-center gap-2.5 rounded-md px-2.5 py-2 font-body text-small transition-colors ${
                 active
                   ? "bg-frame text-ink font-medium"
-                  : "text-ink-soft hover:text-ink hover:bg-surface"
+                  : "text-ink-secondary hover:text-ink hover:bg-surface"
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -63,13 +63,13 @@ export function Sidebar({ email }: { email: string }) {
       </nav>
 
       <div className="px-3 py-4 border-t border-divider">
-        <p className="font-body text-label text-ink-soft px-2.5 truncate">
+        <p className="font-body text-label text-ink-secondary px-2.5 truncate">
           {email}
         </p>
         <form action={signOut}>
           <button
             type="submit"
-            className="w-full text-left font-body text-small text-ink-soft hover:text-ink px-2.5 py-1.5 mt-0.5 transition-colors"
+            className="w-full text-left font-body text-small text-ink-secondary hover:text-ink px-2.5 py-1.5 mt-0.5 transition-colors"
           >
             Sign out
           </button>

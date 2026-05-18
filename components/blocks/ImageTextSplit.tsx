@@ -47,7 +47,7 @@ export function ImageTextSplit({
               imageOnLeft ? "md:order-2" : "md:order-1"
             }`}
           >
-            <p className="font-body text-label uppercase tracking-[0.05em] font-medium text-ink-faint">
+            <p className="font-body text-label uppercase tracking-[0.05em] font-medium text-ink-secondary">
               {label}
             </p>
             <h2 className="font-display text-section text-ink">{title}</h2>
@@ -55,7 +55,7 @@ export function ImageTextSplit({
               {paragraphs.map((para, i) => (
                 <p
                   key={i}
-                  className="font-body text-body text-ink-soft leading-relaxed"
+                  className="font-body text-body text-ink-secondary leading-relaxed"
                 >
                   {para}
                 </p>

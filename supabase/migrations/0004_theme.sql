@@ -22,8 +22,7 @@ insert into public.theme (id, colors) values (1, '{
   "frame": "#C8BB9F",
   "dark": "#4A4A2F",
   "ink": "#1A1A1A",
-  "ink-soft": "#4A4339",
-  "ink-faint": "#615950",
+  "ink-secondary": "#4A4339",
   "ink-muted": "#A89E8B",
   "on-dark": "#FFFFFF",
   "divider": "#D8D1C5"

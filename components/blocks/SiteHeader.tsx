@@ -36,7 +36,7 @@ export async function SiteHeader({ sticky = true, withBlur = true }: Props) {
             <Link
               key={`${link.href}-${link.order}`}
               href={link.href}
-              className="font-body text-small text-ink-soft hover:text-ink transition-colors"
+              className="font-body text-small text-ink-secondary hover:text-ink transition-colors"
             >
               {link.label}
             </Link>

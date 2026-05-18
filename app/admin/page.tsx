@@ -32,7 +32,7 @@ export default function AdminHome() {
   return (
     <div>
       <h1 className="font-display text-section text-ink">Overview</h1>
-      <p className="font-body text-small text-ink-soft mt-1">
+      <p className="font-body text-small text-ink-secondary mt-1">
         Manage the Yard House Studio website.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
@@ -45,7 +45,7 @@ export default function AdminHome() {
             <span className="font-body text-body font-medium text-ink">
               {c.label}
             </span>
-            <p className="font-body text-small text-ink-soft mt-1 leading-relaxed">
+            <p className="font-body text-small text-ink-secondary mt-1 leading-relaxed">
               {c.desc}
             </p>
           </Link>

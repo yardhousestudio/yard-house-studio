@@ -111,14 +111,14 @@ export function MediaLibrary() {
           />
         </label>
         {feedback && (
-          <span className="font-body text-small text-ink-soft">{feedback}</span>
+          <span className="font-body text-small text-ink-secondary">{feedback}</span>
         )}
       </div>
 
       {loading ? (
-        <p className="font-body text-small text-ink-soft">Loading…</p>
+        <p className="font-body text-small text-ink-secondary">Loading…</p>
       ) : items.length === 0 ? (
-        <p className="font-body text-small text-ink-soft">
+        <p className="font-body text-small text-ink-secondary">
           No images yet. Upload one to get started.
         </p>
       ) : (
@@ -143,14 +143,14 @@ export function MediaLibrary() {
                 >
                   {item.filename}
                 </p>
-                <p className="font-body text-label text-ink-soft">
+                <p className="font-body text-label text-ink-secondary">
                   {formatSize(item.size_bytes)}
                 </p>
                 <div className="flex gap-1.5">
                   <button
                     type="button"
                     onClick={() => copyUrl(item.storage_path)}
-                    className="font-body text-label text-ink-soft hover:text-ink border border-divider rounded px-2 py-1 transition-colors"
+                    className="font-body text-label text-ink-secondary hover:text-ink border border-divider rounded px-2 py-1 transition-colors"
                   >
                     {copied === item.storage_path ? "Copied!" : "Copy URL"}
                   </button>
@@ -158,7 +158,7 @@ export function MediaLibrary() {
                     type="button"
                     onClick={() => handleDelete(item)}
                     disabled={busy}
-                    className="font-body text-label text-ink-soft hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-40 transition-colors"
+                    className="font-body text-label text-ink-secondary hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-40 transition-colors"
                   >
                     Delete
                   </button>

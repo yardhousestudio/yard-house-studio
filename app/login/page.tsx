@@ -26,7 +26,7 @@ export default async function LoginPage(props: {
         <h1 className="font-display text-card-title text-ink mt-6">
           Admin sign in
         </h1>
-        <p className="font-body text-small text-ink-soft mt-2 mb-6 leading-relaxed">
+        <p className="font-body text-small text-ink-secondary mt-2 mb-6 leading-relaxed">
           Enter your email and we&apos;ll send a one-time sign-in link.
         </p>
         {errorMessage && (

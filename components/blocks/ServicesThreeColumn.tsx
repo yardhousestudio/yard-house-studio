@@ -19,7 +19,7 @@ export function ServicesThreeColumn({ anchorId, label, title, items }: Props) {
       className="bg-surface py-[var(--space-section-y)]"
     >
       <div className="mx-auto max-w-content px-6 md:px-8 lg:px-16">
-        <p className="font-body text-label uppercase tracking-[0.05em] font-medium text-ink-faint">
+        <p className="font-body text-label uppercase tracking-[0.05em] font-medium text-ink-secondary">
           {label}
         </p>
         <h2 className="font-display text-section text-ink mt-4 max-w-[720px]">
@@ -34,7 +34,7 @@ export function ServicesThreeColumn({ anchorId, label, title, items }: Props) {
               <h3 className="font-display text-card-title text-ink mt-5">
                 {item.title}
               </h3>
-              <p className="font-body text-small text-ink-soft leading-relaxed mt-3">
+              <p className="font-body text-small text-ink-secondary leading-relaxed mt-3">
                 {item.description}
               </p>
             </div>

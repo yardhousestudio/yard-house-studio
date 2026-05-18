@@ -125,7 +125,7 @@ function SingleField({
     <label className="flex flex-col gap-1.5">
       <FieldLabel>{field.label}</FieldLabel>
       {field.type === "image" && (
-        <span className="font-body text-label text-ink-soft">
+        <span className="font-body text-label text-ink-secondary">
           Paste an image URL — a media picker is coming in a later update.
         </span>
       )}
@@ -183,7 +183,7 @@ function ArrayField({
           className="border border-divider rounded-md p-3 flex flex-col gap-3 bg-surface"
         >
           <div className="flex items-center justify-between">
-            <span className="font-body text-label uppercase tracking-[0.05em] text-ink-soft">
+            <span className="font-body text-label uppercase tracking-[0.05em] text-ink-secondary">
               {field.label} {i + 1}
             </span>
             <div className="flex items-center gap-1">
@@ -230,7 +230,7 @@ function ArrayField({
       <button
         type="button"
         onClick={() => update([...value, makeDefaultItem()])}
-        className="font-body text-small text-ink-soft hover:text-ink border border-divider rounded-md px-3 py-2 self-start transition-colors"
+        className="font-body text-small text-ink-secondary hover:text-ink border border-divider rounded-md px-3 py-2 self-start transition-colors"
       >
         + Add {field.label.toLowerCase()}
       </button>
@@ -252,7 +252,7 @@ function ArrayBtn({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="font-body text-label text-ink-soft hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+      className="font-body text-label text-ink-secondary hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
     >
       {children}
     </button>

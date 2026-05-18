@@ -49,7 +49,7 @@ export function ThemeEditor({ initial }: { initial: ThemeColors }) {
               <p className="font-body text-small font-medium text-ink">
                 {token.label}
               </p>
-              <p className="font-body text-label text-ink-soft">{token.role}</p>
+              <p className="font-body text-label text-ink-secondary">{token.role}</p>
             </div>
             <input
               type="text"
@@ -71,7 +71,7 @@ export function ThemeEditor({ initial }: { initial: ThemeColors }) {
           Save colours
         </button>
         {feedback && (
-          <span className="font-body text-small text-ink-soft">{feedback}</span>
+          <span className="font-body text-small text-ink-secondary">{feedback}</span>
         )}
       </div>
     </div>
