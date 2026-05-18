@@ -19,12 +19,22 @@ export default async function AdminLayout({
     <div className="min-h-screen bg-page-outer">
       <header className="bg-page border-b border-divider">
         <div className="mx-auto max-w-content px-6 md:px-8 lg:px-16 py-4 flex items-center justify-between gap-6">
-          <Link
-            href="/admin"
-            className="font-brand italic text-[1.25rem] text-ink"
-          >
-            Yard House Studio
-          </Link>
+          <div className="flex items-center gap-8">
+            <Link
+              href="/admin"
+              className="font-brand italic text-[1.25rem] text-ink"
+            >
+              Yard House Studio
+            </Link>
+            <nav className="flex items-center gap-6">
+              <Link
+                href="/admin/pages"
+                className="font-body text-small text-ink-2 hover:text-ink transition-colors"
+              >
+                Pages
+              </Link>
+            </nav>
+          </div>
           <div className="flex items-center gap-4">
             <span className="font-body text-small text-ink-2">
               {admin.email}
