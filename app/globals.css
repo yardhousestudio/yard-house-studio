@@ -1,33 +1,46 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette — "Craig & Rose" (alternate, hex values are estimates pending real
-     swatch comparison). To revert to Studio Cream defaults, swap the block
-     below with the values in the comment after this @theme.
-  */
-  --color-page: #FFFFFF;        /* white (was Isabeline #ECE2CB) — testing */
-  --color-surface: #FAF8F3;     /* warm off-white — alternating section rhythm */
-  --color-page-outer: #C8BB9F;  /* Hemp Beige — outside content frame */
-  --color-ink: #1A1A1A;         /* unchanged — text contrast */
-  --color-ink-2: #4A4339;       /* warm dark grey */
-  --color-label: #615950;       /* Tintern Stone, darkened to hit AA on cream */
-  --color-muted: #A89E8B;       /* Tintern Stone mid — display numbers register */
-  --color-divider: #D8D1C5;     /* Tintern Stone, faded */
-  --color-footer: #C8BB9F;      /* Hemp Beige */
-  --color-dark: #4A4A2F;        /* Lucienne Olive, deeper — AA headroom for cream */
-  --color-on-dark: #FFFFFF;     /* pure white on olive — testing */
+  /* ── Colour palette — "Craig & Rose" (hex values are estimates pending
+     real swatch comparison) ────────────────────────────────────────────
+     Backgrounds:  page / surface / frame / dark
+     Text ramp:    ink → ink-soft → ink-faint → ink-muted (darkest → faintest)
+     On dark:      on-dark        Lines: divider
+
+     Token            Value      Role
+     --color-page     #FFFFFF    main page background
+     --color-surface  #FAF8F3    alternating section background
+     --color-frame    #C8BB9F    area outside content frame + footer
+     --color-dark     #4A4A2F    dark feature section
+     --color-ink      #1A1A1A    primary text; buttons; active borders
+     --color-ink-soft #4A4339    secondary / body text
+     --color-ink-faint#615950    section labels (de-emphasised text)
+     --color-ink-muted#A89E8B    decorative display numbers
+     --color-on-dark  #FFFFFF    text/elements on dark sections
+     --color-divider  #D8D1C5    borders, rules, dividers
+     To revert to Studio Cream, swap in the commented block below. */
+  --color-page: #FFFFFF;
+  --color-surface: #FAF8F3;
+  --color-frame: #C8BB9F;
+  --color-dark: #4A4A2F;
+  --color-ink: #1A1A1A;
+  --color-ink-soft: #4A4339;
+  --color-ink-faint: #615950;
+  --color-ink-muted: #A89E8B;
+  --color-on-dark: #FFFFFF;
+  --color-divider: #D8D1C5;
 
   /* --- Studio Cream (original) — paste back to revert ---
   --color-page: #FAFAF7;
-  --color-page-outer: #EFEEE7;
-  --color-ink: #1A1A1A;
-  --color-ink-2: #666666;
-  --color-label: #888888;
-  --color-muted: #CCCCCC;
-  --color-divider: #E0E0E0;
-  --color-footer: #F0F0ED;
+  --color-surface: #FAFAF7;
+  --color-frame: #EFEEE7;
   --color-dark: #1A1A1A;
+  --color-ink: #1A1A1A;
+  --color-ink-soft: #666666;
+  --color-ink-faint: #888888;
+  --color-ink-muted: #CCCCCC;
   --color-on-dark: #FFFFFF;
+  --color-divider: #E0E0E0;
   ---------------------------------------------------- */
 
   /* Type families — wired to next/font CSS variables set in app/layout.tsx */
@@ -64,8 +77,8 @@ html {
 }
 
 body {
-  background: var(--color-page-outer);
-  color: var(--color-ink-2);
+  background: var(--color-frame);
+  color: var(--color-ink-soft);
   font-family: var(--font-body);
   font-size: var(--text-body);
 }

@@ -32,11 +32,11 @@ export function CenteredContact({
       className="bg-surface py-[var(--space-section-y)]"
     >
       <div className="mx-auto max-w-content px-6 md:px-8 lg:px-16 text-center">
-        <p className="font-body text-label uppercase tracking-[0.05em] font-medium text-label">
+        <p className="font-body text-label uppercase tracking-[0.05em] font-medium text-ink-faint">
           {label}
         </p>
         <h2 className="font-display text-section text-ink mt-4">{title}</h2>
-        <p className="font-body text-subtitle text-ink-2 max-w-[640px] mx-auto mt-4 leading-relaxed">
+        <p className="font-body text-subtitle text-ink-soft max-w-[640px] mx-auto mt-4 leading-relaxed">
           {subtitle}
         </p>
         <ul className="flex flex-col gap-3 mt-12">
@@ -44,7 +44,7 @@ export function CenteredContact({
             const href = hrefFor(item);
             return (
               <li key={i} className="font-body text-body text-ink">
-                <span className="text-ink-2">{item.label}: </span>
+                <span className="text-ink-soft">{item.label}: </span>
                 {href ? (
                   <a
                     href={href}

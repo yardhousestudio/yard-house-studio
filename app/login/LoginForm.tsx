@@ -28,7 +28,7 @@ export function LoginForm() {
 
   if (status === "sent") {
     return (
-      <p className="font-body text-body text-ink-2 leading-relaxed">
+      <p className="font-body text-body text-ink-soft leading-relaxed">
         Check <span className="text-ink">{email}</span> for a sign-in link.
         You can close this tab once you&apos;ve clicked it.
       </p>
@@ -37,7 +37,7 @@ export function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <label className="font-body text-small text-ink-2 flex flex-col gap-2">
+      <label className="font-body text-small text-ink-soft flex flex-col gap-2">
         Email address
         <input
           type="email"
@@ -56,7 +56,7 @@ export function LoginForm() {
         {status === "sending" ? "Sending…" : "Send sign-in link"}
       </button>
       {status === "error" && (
-        <p className="font-body text-small text-ink-2">{message}</p>
+        <p className="font-body text-small text-ink-soft">{message}</p>
       )}
     </form>
   );

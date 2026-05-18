@@ -27,7 +27,7 @@ export function HeroImageText({ anchorId, image, imageAlt, headline, subtitle }:
           <h1 className="font-display text-hero text-ink leading-[1.05]">
             {headline}
           </h1>
-          <p className="font-body text-subtitle text-ink-2 max-w-[620px] mt-6 leading-relaxed">
+          <p className="font-body text-subtitle text-ink-soft max-w-[620px] mt-6 leading-relaxed">
             {subtitle}
           </p>
         </div>

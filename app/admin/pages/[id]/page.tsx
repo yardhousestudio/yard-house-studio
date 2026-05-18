@@ -34,7 +34,7 @@ export default async function EditPageRoute(props: {
     <div>
       <Link
         href="/admin/pages"
-        className="font-body text-small text-ink-2 hover:text-ink underline underline-offset-4"
+        className="font-body text-small text-ink-soft hover:text-ink underline underline-offset-4"
       >
         ← All pages
       </Link>

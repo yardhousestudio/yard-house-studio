@@ -20,7 +20,7 @@ export default async function NavigationPage() {
   return (
     <div>
       <h1 className="font-display text-section text-ink">Navigation</h1>
-      <p className="font-body text-small text-ink-2 mt-1 mb-6">
+      <p className="font-body text-small text-ink-soft mt-1 mb-6">
         Edit the site header — logo, links and call-to-action button.
       </p>
       <NavbarEditor navbar={navbar} />

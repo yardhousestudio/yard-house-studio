@@ -55,10 +55,10 @@ export function VariablesEditor({ initial }: { initial: Variable[] }) {
         <table className="w-full">
           <thead>
             <tr className="border-b border-divider bg-surface">
-              <th className="text-left font-body text-label uppercase tracking-[0.05em] text-ink-2 px-4 py-3 w-[280px]">
+              <th className="text-left font-body text-label uppercase tracking-[0.05em] text-ink-soft px-4 py-3 w-[280px]">
                 Key
               </th>
-              <th className="text-left font-body text-label uppercase tracking-[0.05em] text-ink-2 px-4 py-3">
+              <th className="text-left font-body text-label uppercase tracking-[0.05em] text-ink-soft px-4 py-3">
                 Value
               </th>
               <th className="px-4 py-3" />
@@ -100,7 +100,7 @@ export function VariablesEditor({ initial }: { initial: Variable[] }) {
                     type="button"
                     onClick={() => handleDelete(i)}
                     disabled={busy}
-                    className="font-body text-label text-ink-2 hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-40 transition-colors"
+                    className="font-body text-label text-ink-soft hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-40 transition-colors"
                   >
                     Delete
                   </button>
@@ -115,7 +115,7 @@ export function VariablesEditor({ initial }: { initial: Variable[] }) {
         <button
           type="button"
           onClick={() => setVars((prev) => [...prev, { key: "", value: "" }])}
-          className="font-body text-small text-ink-2 hover:text-ink border border-divider rounded-md px-3 py-2 transition-colors"
+          className="font-body text-small text-ink-soft hover:text-ink border border-divider rounded-md px-3 py-2 transition-colors"
         >
           + Add variable
         </button>
@@ -128,7 +128,7 @@ export function VariablesEditor({ initial }: { initial: Variable[] }) {
           Save changes
         </button>
         {feedback && (
-          <span className="font-body text-small text-ink-2">{feedback}</span>
+          <span className="font-body text-small text-ink-soft">{feedback}</span>
         )}
       </div>
     </div>

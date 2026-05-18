@@ -151,7 +151,7 @@ export function PageEditor({
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-section text-ink">{pageTitle}</h1>
-          <p className="font-body text-small text-ink-2 mt-1">
+          <p className="font-body text-small text-ink-soft mt-1">
             {dirty
               ? "Unsaved changes"
               : hasDraft
@@ -166,7 +166,7 @@ export function PageEditor({
               type="button"
               onClick={handleDiscard}
               disabled={busy}
-              className="font-body text-small text-ink-2 hover:text-ink border border-divider rounded-md px-3 py-2 disabled:opacity-50 transition-colors"
+              className="font-body text-small text-ink-soft hover:text-ink border border-divider rounded-md px-3 py-2 disabled:opacity-50 transition-colors"
             >
               Discard draft
             </button>
@@ -175,7 +175,7 @@ export function PageEditor({
             type="button"
             onClick={handleSaveDraft}
             disabled={busy}
-            className="font-body text-small text-ink border border-ink rounded-md px-3 py-2 disabled:opacity-50 hover:bg-footer transition-colors"
+            className="font-body text-small text-ink border border-ink rounded-md px-3 py-2 disabled:opacity-50 hover:bg-frame transition-colors"
           >
             Save draft
           </button>
@@ -206,13 +206,13 @@ export function PageEditor({
                   onClick={() => setExpanded(isOpen ? null : c.contentKey)}
                   className="flex items-center gap-3 flex-1 text-left"
                 >
-                  <span className="font-body text-label text-ink-2 w-5">
+                  <span className="font-body text-label text-ink-soft w-5">
                     {i + 1}
                   </span>
                   <span className="font-body text-body font-medium text-ink">
                     {schema?.label ?? c.type}
                   </span>
-                  <span className="font-body text-label text-ink-2">
+                  <span className="font-body text-label text-ink-soft">
                     {isOpen ? "▲" : "▼"}
                   </span>
                 </button>
@@ -234,11 +234,11 @@ export function PageEditor({
               {isOpen && (
                 <div className="border-t border-divider px-4 py-4 bg-surface">
                   {!schema ? (
-                    <p className="font-body text-small text-ink-2">
+                    <p className="font-body text-small text-ink-soft">
                       Unknown component type “{c.type}”.
                     </p>
                   ) : schema.fields.length === 0 ? (
-                    <p className="font-body text-small text-ink-2">
+                    <p className="font-body text-small text-ink-soft">
                       This component has no editable options.
                     </p>
                   ) : (
@@ -271,7 +271,7 @@ export function PageEditor({
         <button
           type="button"
           onClick={addComponent}
-          className="font-body text-small text-ink-2 hover:text-ink border border-divider rounded-md px-3 py-2 transition-colors"
+          className="font-body text-small text-ink-soft hover:text-ink border border-divider rounded-md px-3 py-2 transition-colors"
         >
           + Add component
         </button>
@@ -294,7 +294,7 @@ function CardBtn({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="font-body text-label text-ink-2 hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+      className="font-body text-label text-ink-soft hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
     >
       {children}
     </button>

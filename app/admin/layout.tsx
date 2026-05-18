@@ -15,7 +15,7 @@ export default async function AdminLayout({
   const admin = await requireAdmin();
 
   return (
-    <div className="flex min-h-screen bg-page-outer">
+    <div className="flex min-h-screen bg-frame">
       <Sidebar email={admin.email} />
       <main className="flex-1 min-w-0 px-8 py-8">
         <div className="max-w-[1080px]">{children}</div>

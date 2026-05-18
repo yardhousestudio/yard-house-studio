@@ -13,7 +13,7 @@ export default async function VariablesPage() {
   return (
     <div>
       <h1 className="font-display text-section text-ink">Variables</h1>
-      <p className="font-body text-small text-ink-2 mt-1 mb-6">
+      <p className="font-body text-small text-ink-soft mt-1 mb-6">
         Reusable values referenced in content as{" "}
         <code className="font-body text-small text-ink">${"{KEY}"}</code> — edit
         them in one place and they update everywhere.

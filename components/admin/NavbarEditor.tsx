@@ -82,7 +82,7 @@ export function NavbarEditor({ navbar }: { navbar: NavbarRow }) {
             className="border border-divider rounded-md p-3 bg-surface flex flex-col gap-3"
           >
             <div className="flex items-center justify-between">
-              <span className="font-body text-label uppercase tracking-[0.05em] text-ink-2">
+              <span className="font-body text-label uppercase tracking-[0.05em] text-ink-soft">
                 Link {i + 1}
               </span>
               <div className="flex gap-1">
@@ -106,7 +106,7 @@ export function NavbarEditor({ navbar }: { navbar: NavbarRow }) {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <label className="flex flex-col gap-1.5">
-                <span className="font-body text-small text-ink-2">Label</span>
+                <span className="font-body text-small text-ink-soft">Label</span>
                 <input
                   value={link.label}
                   onChange={(e) => setLink(i, { label: e.target.value })}
@@ -114,7 +114,7 @@ export function NavbarEditor({ navbar }: { navbar: NavbarRow }) {
                 />
               </label>
               <label className="flex flex-col gap-1.5">
-                <span className="font-body text-small text-ink-2">
+                <span className="font-body text-small text-ink-soft">
                   Link (e.g. #services)
                 </span>
                 <input
@@ -134,7 +134,7 @@ export function NavbarEditor({ navbar }: { navbar: NavbarRow }) {
               { label: "New link", href: "#", order: prev.length },
             ])
           }
-          className="font-body text-small text-ink-2 hover:text-ink border border-divider rounded-md px-3 py-2 self-start transition-colors"
+          className="font-body text-small text-ink-soft hover:text-ink border border-divider rounded-md px-3 py-2 self-start transition-colors"
         >
           + Add link
         </button>
@@ -144,12 +144,12 @@ export function NavbarEditor({ navbar }: { navbar: NavbarRow }) {
         <h2 className="font-body text-body font-medium text-ink">
           Call-to-action button
         </h2>
-        <p className="font-body text-small text-ink-2">
+        <p className="font-body text-small text-ink-soft">
           Leave the label empty to hide the button.
         </p>
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1.5">
-            <span className="font-body text-small text-ink-2">Label</span>
+            <span className="font-body text-small text-ink-soft">Label</span>
             <input
               value={ctaLabel}
               onChange={(e) => {
@@ -160,7 +160,7 @@ export function NavbarEditor({ navbar }: { navbar: NavbarRow }) {
             />
           </label>
           <label className="flex flex-col gap-1.5">
-            <span className="font-body text-small text-ink-2">Link</span>
+            <span className="font-body text-small text-ink-soft">Link</span>
             <input
               value={ctaHref}
               onChange={(e) => {
@@ -183,7 +183,7 @@ export function NavbarEditor({ navbar }: { navbar: NavbarRow }) {
           Save navigation
         </button>
         {feedback && (
-          <span className="font-body text-small text-ink-2">{feedback}</span>
+          <span className="font-body text-small text-ink-soft">{feedback}</span>
         )}
       </div>
     </div>
@@ -204,7 +204,7 @@ function SmallBtn({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="font-body text-label text-ink-2 hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+      className="font-body text-label text-ink-soft hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
     >
       {children}
     </button>

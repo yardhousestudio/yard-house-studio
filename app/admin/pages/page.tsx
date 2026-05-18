@@ -14,7 +14,7 @@ type PageRow = {
 
 function Th({ children }: { children: React.ReactNode }) {
   return (
-    <th className="text-left font-body text-label uppercase tracking-[0.05em] text-ink-2 px-4 py-3">
+    <th className="text-left font-body text-label uppercase tracking-[0.05em] text-ink-soft px-4 py-3">
       {children}
     </th>
   );
@@ -22,7 +22,7 @@ function Th({ children }: { children: React.ReactNode }) {
 
 function Td({ children }: { children: React.ReactNode }) {
   return (
-    <td className="font-body text-small text-ink-2 px-4 py-3 align-middle">
+    <td className="font-body text-small text-ink-soft px-4 py-3 align-middle">
       {children}
     </td>
   );
@@ -42,7 +42,7 @@ export default async function PagesListPage() {
   return (
     <div>
       <h1 className="font-display text-section text-ink">Pages</h1>
-      <p className="font-body text-small text-ink-2 mt-1">
+      <p className="font-body text-small text-ink-soft mt-1">
         Manage your website pages and content.
       </p>
 
