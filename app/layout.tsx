@@ -1,6 +1,28 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { Instrument_Serif, DM_Serif_Display, Inter } from "next/font/google";
+import { createClient } from "@supabase/supabase-js";
+import { themeToCssVars, type ThemeColors } from "@/lib/theme";
 import "./globals.css";
+
+// Fetch the editable colour palette and turn it into CSS variables.
+// Falls back to globals.css defaults if the theme row is missing.
+async function getThemeStyle(): Promise<CSSProperties> {
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
+    const { data } = await supabase
+      .from("theme")
+      .select("colors")
+      .eq("id", 1)
+      .single();
+    return themeToCssVars((data?.colors as ThemeColors) ?? {}) as CSSProperties;
+  } catch {
+    return themeToCssVars({}) as CSSProperties;
+  }
+}
 
 const brand = Instrument_Serif({
   subsets: ["latin"],
@@ -30,14 +52,16 @@ export const metadata: Metadata = {
     "A premium Edinburgh studio combining practical hands-on capability with strong spatial judgement, taste, and sensitivity to period homes.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const themeStyle = await getThemeStyle();
   return (
     <html
       lang="en"
+      style={themeStyle}
       className={`${brand.variable} ${display.variable} ${body.variable} antialiased`}
     >
       <body>{children}</body>

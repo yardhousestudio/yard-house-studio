@@ -21,6 +21,11 @@ const CARDS = [
     href: "/admin/variables",
     desc: "Edit reusable values like contact details.",
   },
+  {
+    label: "Colours",
+    href: "/admin/theme",
+    desc: "Edit the site's colour palette.",
+  },
 ];
 
 export default function AdminHome() {

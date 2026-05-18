@@ -8,6 +8,7 @@ import {
   LayersIcon,
   ImageIcon,
   GearIcon,
+  ColorWheelIcon,
 } from "@radix-ui/react-icons";
 import { signOut } from "@/app/admin/actions";
 
@@ -17,6 +18,7 @@ const NAV = [
   { label: "Navigation", href: "/admin/navigation", icon: LayersIcon },
   { label: "Media", href: "/admin/media", icon: ImageIcon },
   { label: "Variables", href: "/admin/variables", icon: GearIcon },
+  { label: "Colours", href: "/admin/theme", icon: ColorWheelIcon },
 ];
 
 export function Sidebar({ email }: { email: string }) {
