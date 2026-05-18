@@ -1,50 +1,100 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
-function Tag({ children }: { children: React.ReactNode }) {
+type PageRow = {
+  id: string;
+  title: string;
+  slug: string;
+  published: boolean;
+  has_draft: boolean;
+  is_homepage: boolean;
+  components: unknown[];
+  updated_at: string;
+};
+
+function Th({ children }: { children: React.ReactNode }) {
   return (
-    <span className="font-body text-label uppercase tracking-[0.05em] text-ink-2 border border-divider rounded px-2 py-0.5">
+    <th className="text-left font-body text-label uppercase tracking-[0.05em] text-ink-2 px-4 py-3">
       {children}
-    </span>
+    </th>
+  );
+}
+
+function Td({ children }: { children: React.ReactNode }) {
+  return (
+    <td className="font-body text-small text-ink-2 px-4 py-3 align-middle">
+      {children}
+    </td>
   );
 }
 
 export default async function PagesListPage() {
   const supabase = await createClient();
-  const { data: pages } = await supabase
+  const { data } = await supabase
     .from("pages")
-    .select("id, title, slug, published, has_draft, is_homepage")
+    .select(
+      "id, title, slug, published, has_draft, is_homepage, components, updated_at",
+    )
     .order("is_homepage", { ascending: false })
     .order("title");
+  const pages = (data ?? []) as PageRow[];
 
   return (
     <div>
       <h1 className="font-display text-section text-ink">Pages</h1>
       <p className="font-body text-small text-ink-2 mt-1">
-        Select a page to edit its components.
+        Manage your website pages and content.
       </p>
-      <div className="flex flex-col gap-2 mt-6">
-        {(pages ?? []).map((p) => (
-          <Link
-            key={p.id}
-            href={`/admin/pages/${p.id}`}
-            className="border border-divider rounded-lg bg-page px-4 py-3 flex items-center justify-between gap-4 hover:border-ink transition-colors"
-          >
-            <div className="flex items-baseline gap-2">
-              <span className="font-body text-body font-medium text-ink">
-                {p.title}
-              </span>
-              <span className="font-body text-small text-ink-2">
-                /{p.slug}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              {p.is_homepage && <Tag>Homepage</Tag>}
-              {p.has_draft && <Tag>Draft</Tag>}
-              <Tag>{p.published ? "Published" : "Unpublished"}</Tag>
-            </div>
-          </Link>
-        ))}
+
+      <div className="mt-6 border border-divider rounded-lg overflow-hidden bg-page">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-divider bg-surface">
+              <Th>Title</Th>
+              <Th>Slug</Th>
+              <Th>Status</Th>
+              <Th>Draft</Th>
+              <Th>Components</Th>
+              <Th>Updated</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {pages.map((p) => (
+              <tr
+                key={p.id}
+                className="border-b border-divider last:border-0 hover:bg-surface transition-colors"
+              >
+                <Td>
+                  <Link
+                    href={`/admin/pages/${p.id}`}
+                    className="font-medium text-ink hover:underline underline-offset-4"
+                  >
+                    {p.is_homepage ? "⌂ " : ""}
+                    {p.title}
+                  </Link>
+                </Td>
+                <Td>
+                  <span className="bg-surface border border-divider rounded px-1.5 py-0.5">
+                    /{p.slug}
+                  </span>
+                </Td>
+                <Td>{p.published ? "Published" : "Unpublished"}</Td>
+                <Td>{p.has_draft ? "Draft" : "—"}</Td>
+                <Td>
+                  {Array.isArray(p.components) ? p.components.length : 0}{" "}
+                  components
+                </Td>
+                <Td>
+                  {new Date(p.updated_at).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </Td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

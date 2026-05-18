@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { requireAdmin } from "@/lib/requireAdmin";
-import { signOut } from "./actions";
+import { Sidebar } from "@/components/admin/Sidebar";
 
 export const metadata: Metadata = {
   title: "Admin — Yard House Studio",
@@ -16,42 +15,10 @@ export default async function AdminLayout({
   const admin = await requireAdmin();
 
   return (
-    <div className="min-h-screen bg-page-outer">
-      <header className="bg-page border-b border-divider">
-        <div className="mx-auto max-w-content px-6 md:px-8 lg:px-16 py-4 flex items-center justify-between gap-6">
-          <div className="flex items-center gap-8">
-            <Link
-              href="/admin"
-              className="font-brand italic text-[1.25rem] text-ink"
-            >
-              Yard House Studio
-            </Link>
-            <nav className="flex items-center gap-6">
-              <Link
-                href="/admin/pages"
-                className="font-body text-small text-ink-2 hover:text-ink transition-colors"
-              >
-                Pages
-              </Link>
-            </nav>
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="font-body text-small text-ink-2">
-              {admin.email}
-            </span>
-            <form action={signOut}>
-              <button
-                type="submit"
-                className="font-body text-small text-ink-2 hover:text-ink underline underline-offset-4"
-              >
-                Sign out
-              </button>
-            </form>
-          </div>
-        </div>
-      </header>
-      <main className="mx-auto max-w-content px-6 md:px-8 lg:px-16 py-10">
-        {children}
+    <div className="flex min-h-screen bg-page-outer">
+      <Sidebar email={admin.email} />
+      <main className="flex-1 min-w-0 px-8 py-8">
+        <div className="max-w-[1080px]">{children}</div>
       </main>
     </div>
   );
