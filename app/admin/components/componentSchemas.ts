@@ -42,6 +42,28 @@ export const componentSchemas: Record<string, ComponentSchema> = {
     },
   },
 
+  "page-hero": {
+    label: "Page hero (inner pages)",
+    fields: [
+      { key: "label", label: "Eyebrow label (optional)", type: "text" },
+      { key: "headline", label: "Headline", type: "textarea" },
+      { key: "subtitle", label: "Subtitle (optional)", type: "textarea" },
+      { key: "primaryCtaLabel", label: "Primary button label (blank = hidden)", type: "text" },
+      { key: "primaryCtaHref", label: "Primary button link", type: "text" },
+      { key: "secondaryCtaLabel", label: "Secondary button label (blank = hidden)", type: "text" },
+      { key: "secondaryCtaHref", label: "Secondary button link", type: "text" },
+    ],
+    defaults: {
+      label: "",
+      headline: "A considered approach to every project.",
+      subtitle: "",
+      primaryCtaLabel: "",
+      primaryCtaHref: "",
+      secondaryCtaLabel: "",
+      secondaryCtaHref: "",
+    },
+  },
+
   divider: {
     label: "Divider",
     fields: [],

@@ -4,6 +4,7 @@ import { DarkTwoColumn } from "@/components/blocks/DarkTwoColumn";
 import { Divider } from "@/components/blocks/Divider";
 import { HeroImageText } from "@/components/blocks/HeroImageText";
 import { ImageTextSplit } from "@/components/blocks/ImageTextSplit";
+import { PageHero } from "@/components/blocks/PageHero";
 import { ServicesThreeColumn } from "@/components/blocks/ServicesThreeColumn";
 import { SiteFooter } from "@/components/blocks/SiteFooter";
 import { SiteHeader } from "@/components/blocks/SiteHeader";
@@ -17,6 +18,7 @@ type BlockComponent = (props: any) => React.ReactNode | Promise<React.ReactNode>
 const registry: Record<string, BlockComponent> = {
   "site-header": SiteHeader,
   "hero-image-text": HeroImageText,
+  "page-hero": PageHero,
   divider: Divider,
   "services-three-column": ServicesThreeColumn,
   "dark-two-column": DarkTwoColumn,
