@@ -3,9 +3,12 @@
 import { useState } from "react";
 import { savePageDetails } from "@/app/admin/pages/actions";
 
+type PageType = "standard" | "pillar" | "cluster";
+
 type Props = {
   pageId: string;
   isHomepage: boolean;
+  pillars: { id: string; title: string }[];
   initial: {
     title: string;
     slug: string;
@@ -13,19 +16,28 @@ type Props = {
     ogTitle: string;
     ogDescription: string;
     ogImage: string;
+    pageType: PageType;
+    pillarId: string;
   };
 };
 
 const inputClass =
   "font-body text-small text-ink bg-page border border-divider rounded-md px-3 py-2 focus:outline-none focus:border-ink w-full";
 
-export function PageDetailsEditor({ pageId, isHomepage, initial }: Props) {
+export function PageDetailsEditor({
+  pageId,
+  isHomepage,
+  pillars,
+  initial,
+}: Props) {
   const [title, setTitle] = useState(initial.title);
   const [slug, setSlug] = useState(initial.slug);
   const [description, setDescription] = useState(initial.description);
   const [ogTitle, setOgTitle] = useState(initial.ogTitle);
   const [ogDescription, setOgDescription] = useState(initial.ogDescription);
   const [ogImage, setOgImage] = useState(initial.ogImage);
+  const [pageType, setPageType] = useState<PageType>(initial.pageType);
+  const [pillarId, setPillarId] = useState(initial.pillarId);
 
   const [dirty, setDirty] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -55,6 +67,8 @@ export function PageDetailsEditor({ pageId, isHomepage, initial }: Props) {
         ogTitle,
         ogDescription,
         ogImage,
+        pageType,
+        pillarId: pageType === "cluster" ? pillarId : "",
       });
       setDirty(false);
       setFeedback("Details saved");
@@ -96,6 +110,53 @@ export function PageDetailsEditor({ pageId, isHomepage, initial }: Props) {
             />
           </div>
         </Field>
+
+        <Field
+          label="Page type"
+          hint={
+            pageType === "pillar"
+              ? "A pillar page covers a broad topic. Cluster pages link up to it."
+              : pageType === "cluster"
+                ? "A cluster page covers one subtopic and belongs to a pillar."
+                : "A standard page — not part of the pillar/cluster SEO model."
+          }
+        >
+          <select
+            value={pageType}
+            onChange={(e) => edit(setPageType)(e.target.value as PageType)}
+            className={inputClass}
+          >
+            <option value="standard">Standard page</option>
+            <option value="pillar">Pillar page</option>
+            <option value="cluster">Cluster page</option>
+          </select>
+        </Field>
+
+        {pageType === "cluster" && (
+          <Field
+            label="Pillar page"
+            required
+            hint={
+              pillars.length === 0
+                ? "No pillar pages exist yet — create one first, then assign it here."
+                : "The pillar this cluster page belongs to and links back to."
+            }
+          >
+            <select
+              value={pillarId}
+              onChange={(e) => edit(setPillarId)(e.target.value)}
+              disabled={pillars.length === 0}
+              className={`${inputClass} disabled:opacity-50 disabled:cursor-not-allowed`}
+            >
+              <option value="">— Select a pillar page —</option>
+              {pillars.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.title}
+                </option>
+              ))}
+            </select>
+          </Field>
+        )}
 
         <Field label="Description">
           <textarea

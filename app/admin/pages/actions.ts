@@ -70,6 +70,8 @@ const PageDetailsSchema = z.object({
   ogTitle: z.string(),
   ogDescription: z.string(),
   ogImage: z.string(),
+  pageType: z.enum(["standard", "pillar", "cluster"]),
+  pillarId: z.string(), // "" unless the page is a cluster
 });
 
 // Save a page's details — title, slug and SEO/Open Graph fields. These are
@@ -94,6 +96,37 @@ export async function savePageDetails(pageId: string, input: unknown) {
     );
   }
 
+  // Resolve the pillar relationship. Only cluster pages carry a pillar_id,
+  // and that pillar must still be a pillar page.
+  let pillarId: string | null = null;
+  if (d.pageType === "cluster") {
+    if (!d.pillarId) {
+      throw new Error("Choose a pillar page for this cluster page.");
+    }
+    const { data: pillar } = await supabase
+      .from("pages")
+      .select("page_type")
+      .eq("id", d.pillarId)
+      .single();
+    if (pillar?.page_type !== "pillar") {
+      throw new Error("The selected pillar page is no longer a pillar.");
+    }
+    pillarId = d.pillarId;
+  }
+
+  // Don't strand cluster pages: block demoting a pillar that still has some.
+  if (d.pageType !== "pillar") {
+    const { count } = await supabase
+      .from("pages")
+      .select("id", { count: "exact", head: true })
+      .eq("pillar_id", pageId);
+    if (count && count > 0) {
+      throw new Error(
+        `This page is the pillar for ${count} cluster page(s). Reassign them before changing its type.`,
+      );
+    }
+  }
+
   const { error } = await supabase
     .from("pages")
     .update({
@@ -103,6 +136,8 @@ export async function savePageDetails(pageId: string, input: unknown) {
       og_title: d.ogTitle.trim() || null,
       og_description: d.ogDescription.trim() || null,
       og_image: d.ogImage.trim() || null,
+      page_type: d.pageType,
+      pillar_id: pillarId,
     })
     .eq("id", pageId);
 
