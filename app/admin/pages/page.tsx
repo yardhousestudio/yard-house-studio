@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { NewPageForm } from "@/components/admin/NewPageForm";
 
 type PageRow = {
   id: string;
@@ -41,12 +42,20 @@ export default async function PagesListPage() {
 
   return (
     <div>
-      <h1 className="font-display text-section text-ink">Pages</h1>
-      <p className="font-body text-small text-ink-secondary mt-1">
-        Manage your website pages and content.
-      </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="font-display text-section text-ink">Pages</h1>
+          <p className="font-body text-small text-ink-secondary mt-1">
+            Manage your website pages and content.
+          </p>
+        </div>
+      </div>
 
-      <div className="mt-6 border border-divider rounded-lg overflow-hidden bg-page">
+      <div className="mt-6">
+        <NewPageForm />
+      </div>
+
+      <div className="mt-4 border border-divider rounded-lg overflow-hidden bg-page">
         <table className="w-full">
           <thead>
             <tr className="border-b border-divider bg-surface">

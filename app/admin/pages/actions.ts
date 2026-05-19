@@ -14,6 +14,53 @@ const ComponentSchema = z.object({
 
 const ComponentsSchema = z.array(ComponentSchema);
 
+const CreatePageSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  slug: z
+    .string()
+    .regex(
+      /^[a-z0-9][a-z0-9/-]*$/,
+      "Slug: lowercase letters, numbers, hyphens and slashes (e.g. our-services)",
+    ),
+});
+
+// Create a new (unpublished) page, scaffolded with a header, a page hero
+// and a footer. Returns the new page id so the caller can open its editor.
+export async function createPage(input: unknown) {
+  const { title, slug } = CreatePageSchema.parse(input);
+  const supabase = await createClient();
+
+  const scaffold = ["site-header", "page-hero", "site-footer"].map(
+    (type, order) => ({
+      type,
+      order,
+      contentKey: crypto.randomUUID(),
+      props: {},
+      anchorId: "",
+    }),
+  );
+
+  const { data, error } = await supabase
+    .from("pages")
+    .insert({
+      title,
+      slug,
+      components: scaffold,
+      published: false,
+      is_homepage: false,
+    })
+    .select("id")
+    .single();
+
+  if (error) {
+    if (error.code === "23505") {
+      throw new Error(`A page with the slug "${slug}" already exists.`);
+    }
+    throw error; // RLS rejects non-admins
+  }
+  return data.id as string;
+}
+
 // Save the working set of components to the page's draft.
 export async function saveDraft(pageId: string, components: unknown) {
   const parsed = ComponentsSchema.parse(components);
