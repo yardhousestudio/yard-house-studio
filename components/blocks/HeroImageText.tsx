@@ -98,7 +98,7 @@ export function HeroImageText({
             <button
               type="button"
               onClick={slideshow.showBeforeImage}
-              className={`absolute left-0 bottom-full z-30 ${HERO_BTN_BASE} ${HERO_BTN_GLOW} text-ink-secondary bg-page opacity-100 hover:opacity-95 border-t-0 border-x-0 border-b border-divider`}
+              className={`absolute left-0 bottom-full z-30 ${HERO_BTN_BASE} ${HERO_BTN_GLOW} text-ink-secondary bg-page opacity-100 hover:opacity-95`}
             >
               See how it started...
             </button>
