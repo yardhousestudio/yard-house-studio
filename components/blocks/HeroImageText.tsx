@@ -72,12 +72,16 @@ export function HeroImageText({
       <div className="relative w-full h-[420px] md:h-[560px] overflow-hidden">
         {useSlideshow ? (
           <HeroSlideshow
+            pairs={pairs}
             pair={slideshow.pair}
             index={slideshow.index}
+            fromIndex={slideshow.fromIndex}
+            slideDirection={slideshow.slideDirection}
             showBefore={slideshow.showBefore}
-            pairsCount={pairs.length}
             fallbackAlt={imageAlt}
             onGoToPair={slideshow.goToPair}
+            onNext={slideshow.goToNextPair}
+            onPrev={slideshow.goToPrevPair}
           />
         ) : image ? (
           <Image

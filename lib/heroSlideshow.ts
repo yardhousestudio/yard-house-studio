@@ -1,3 +1,6 @@
+/** Horizontal slide between image pairs (ms). */
+export const HERO_PAIR_SLIDE_MS = 1000;
+
 export type HeroSlidePair = {
   beforeImage?: string;
   afterImage?: string;
