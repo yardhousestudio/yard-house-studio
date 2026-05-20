@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { PageEditor } from "@/components/admin/PageEditor";
-import { PageDetailsEditor } from "@/components/admin/PageDetailsEditor";
+import { PageEditScreen } from "@/components/admin/PageEditScreen";
 import type { ComponentInstance } from "@/lib/types";
 
 type PageRecord = {
@@ -57,13 +56,13 @@ export default async function EditPageRoute(props: {
       >
         ← All pages
       </Link>
-      <div className="mt-4 flex flex-col gap-6">
-        <PageDetailsEditor
+      <div className="mt-4">
+        <PageEditScreen
           pageId={page.id}
           isHomepage={page.is_homepage}
           pillars={pillars}
-          initial={{
-            title: page.title,
+          initialTitle={page.title}
+          initialDetails={{
             slug: page.slug,
             description: page.description ?? "",
             ogTitle: page.og_title ?? "",
@@ -72,10 +71,6 @@ export default async function EditPageRoute(props: {
             pageType: page.page_type,
             pillarId: page.pillar_id ?? "",
           }}
-        />
-        <PageEditor
-          pageId={page.id}
-          pageTitle={page.title}
           initialComponents={editing}
           initialHasDraft={page.has_draft}
         />

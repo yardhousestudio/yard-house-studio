@@ -25,7 +25,7 @@ export function Sidebar({ email }: { email: string }) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-60 shrink-0 bg-page border-r border-divider min-h-screen flex flex-col">
+    <aside className="sticky top-0 h-screen w-60 shrink-0 bg-page border-r border-divider flex flex-col">
       <div className="px-5 py-5 border-b border-divider">
         <p className="font-brand italic text-[1.25rem] text-ink leading-none">
           Yard House Studio

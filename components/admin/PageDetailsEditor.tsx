@@ -9,6 +9,7 @@ type Props = {
   pageId: string;
   isHomepage: boolean;
   pillars: { id: string; title: string }[];
+  onTitleSaved?: (title: string) => void;
   initial: {
     title: string;
     slug: string;
@@ -28,6 +29,7 @@ export function PageDetailsEditor({
   pageId,
   isHomepage,
   pillars,
+  onTitleSaved,
   initial,
 }: Props) {
   const [title, setTitle] = useState(initial.title);
@@ -72,6 +74,7 @@ export function PageDetailsEditor({
       });
       setDirty(false);
       setFeedback("Details saved");
+      onTitleSaved?.(title);
     } catch (e) {
       setFeedback("");
       setError(e instanceof Error ? e.message : "Could not save details");
@@ -226,7 +229,7 @@ function Section({
   title: string;
   children: React.ReactNode;
 }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
     <div className="border border-divider rounded-lg bg-page overflow-hidden">
       <button
