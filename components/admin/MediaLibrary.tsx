@@ -1,93 +1,19 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
-
-type MediaItem = {
-  id: string;
-  storage_path: string;
-  filename: string;
-  mime_type: string | null;
-  size_bytes: number | null;
-  created_at: string;
-};
-
-function formatSize(bytes: number | null): string {
-  if (!bytes) return "";
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
-  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
-}
+import { useRef, useState } from "react";
+import { formatMediaSize, useMediaLibrary } from "./useMediaLibrary";
 
 export function MediaLibrary() {
-  const [supabase] = useState(() => createClient());
-  const [items, setItems] = useState<MediaItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [busy, setBusy] = useState(false);
-  const [feedback, setFeedback] = useState("");
-  const [copied, setCopied] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-
-  const publicUrl = useCallback(
-    (path: string) =>
-      supabase.storage.from("media").getPublicUrl(path).data.publicUrl,
-    [supabase],
-  );
-
-  const refresh = useCallback(async () => {
-    setLoading(true);
-    const { data } = await supabase
-      .from("media")
-      .select("id, storage_path, filename, mime_type, size_bytes, created_at")
-      .order("created_at", { ascending: false });
-    setItems((data ?? []) as MediaItem[]);
-    setLoading(false);
-  }, [supabase]);
-
-  useEffect(() => {
-    refresh();
-  }, [refresh]);
+  const [copied, setCopied] = useState<string | null>(null);
+  const { items, loading, busy, feedback, publicUrl, upload, remove } =
+    useMediaLibrary();
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    setBusy(true);
-    setFeedback("Uploading…");
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
-    const path = `${Date.now()}-${safeName}`;
-
-    const { error: upErr } = await supabase.storage
-      .from("media")
-      .upload(path, file);
-    if (upErr) {
-      setFeedback(upErr.message);
-      setBusy(false);
-      return;
-    }
-    const { error: rowErr } = await supabase.from("media").insert({
-      storage_path: path,
-      filename: file.name,
-      mime_type: file.type,
-      size_bytes: file.size,
-    });
-    if (rowErr) {
-      setFeedback(rowErr.message);
-      setBusy(false);
-      return;
-    }
-    setFeedback("");
-    setBusy(false);
+    await upload(file);
     if (fileRef.current) fileRef.current.value = "";
-    refresh();
-  }
-
-  async function handleDelete(item: MediaItem) {
-    if (!confirm(`Delete ${item.filename}? This cannot be undone.`)) return;
-    setBusy(true);
-    await supabase.storage.from("media").remove([item.storage_path]);
-    await supabase.from("media").delete().eq("id", item.id);
-    setBusy(false);
-    refresh();
   }
 
   async function copyUrl(path: string) {
@@ -144,7 +70,7 @@ export function MediaLibrary() {
                   {item.filename}
                 </p>
                 <p className="font-body text-label text-ink-secondary">
-                  {formatSize(item.size_bytes)}
+                  {formatMediaSize(item.size_bytes)}
                 </p>
                 <div className="flex gap-1.5">
                   <button
@@ -156,7 +82,15 @@ export function MediaLibrary() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleDelete(item)}
+                    onClick={() => {
+                      if (
+                        !confirm(
+                          `Delete ${item.filename}? This cannot be undone.`,
+                        )
+                      )
+                        return;
+                      remove(item);
+                    }}
                     disabled={busy}
                     className="font-body text-label text-ink-secondary hover:text-ink border border-divider rounded px-2 py-1 disabled:opacity-40 transition-colors"
                   >

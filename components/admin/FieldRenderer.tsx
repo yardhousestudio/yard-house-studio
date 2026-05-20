@@ -1,5 +1,6 @@
 "use client";
 
+import { ImageFieldInput } from "./ImageFieldInput";
 import type { Field } from "@/lib/types";
 
 type Values = Record<string, unknown>;
@@ -120,15 +121,20 @@ function SingleField({
     );
   }
 
-  // text, image, color, date, page-selector → text-style input
+  if (field.type === "image") {
+    return (
+      <ImageFieldInput
+        label={field.label}
+        value={String(value ?? "")}
+        onChange={onChange}
+      />
+    );
+  }
+
+  // text, color, date, page-selector → text-style input
   return (
     <label className="flex flex-col gap-1.5">
       <FieldLabel>{field.label}</FieldLabel>
-      {field.type === "image" && (
-        <span className="font-body text-label text-ink-secondary">
-          Paste an image URL — a media picker is coming in a later update.
-        </span>
-      )}
       <input
         type={field.type === "date" ? "date" : field.type === "color" ? "color" : "text"}
         value={String(value ?? "")}

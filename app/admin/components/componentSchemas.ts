@@ -19,7 +19,34 @@ export const componentSchemas: Record<string, ComponentSchema> = {
   "hero-image-text": {
     label: "Hero — image + text",
     fields: [
-      { key: "image", label: "Image", type: "image" },
+      {
+        key: "slides",
+        label: "Before / after slideshow pairs",
+        type: "array",
+        itemSchema: [
+          { key: "beforeImage", label: "Before image", type: "image" },
+          { key: "afterImage", label: "After image", type: "image" },
+          { key: "beforeAlt", label: "Before alt text (optional)", type: "text" },
+          { key: "afterAlt", label: "After alt text (optional)", type: "text" },
+        ],
+      },
+      {
+        key: "beforeDurationSec",
+        label: "Before display duration (seconds)",
+        type: "number",
+        default: 1,
+      },
+      {
+        key: "afterDurationSec",
+        label: "After display duration (seconds)",
+        type: "number",
+        default: 5,
+      },
+      {
+        key: "image",
+        label: "Fallback image (when no slideshow pairs)",
+        type: "image",
+      },
       { key: "imageAlt", label: "Image alt text", type: "text" },
       { key: "headline", label: "Headline", type: "textarea" },
       { key: "subtitle", label: "Subtitle", type: "textarea" },
@@ -29,6 +56,9 @@ export const componentSchemas: Record<string, ComponentSchema> = {
       { key: "secondaryCtaHref", label: "Secondary button link", type: "text" },
     ],
     defaults: {
+      slides: [],
+      beforeDurationSec: 1,
+      afterDurationSec: 5,
       image: "",
       imageAlt: "Edinburgh period architecture",
       headline:

@@ -1,10 +1,17 @@
 import Image from "next/image";
 import { Cta, hasCta } from "./Cta";
+import {
+  HeroSlideshow,
+  parseHeroSlidePairs,
+} from "./HeroSlideshow";
 
 type Props = {
   anchorId?: string;
   image: string;
   imageAlt: string;
+  slides?: unknown;
+  beforeDurationSec?: number;
+  afterDurationSec?: number;
   headline: string;
   subtitle: string;
   primaryCtaLabel?: string;
@@ -17,6 +24,9 @@ export function HeroImageText({
   anchorId,
   image,
   imageAlt,
+  slides,
+  beforeDurationSec = 1,
+  afterDurationSec = 5,
   headline,
   subtitle,
   primaryCtaLabel = "",
@@ -24,17 +34,29 @@ export function HeroImageText({
   secondaryCtaLabel = "",
   secondaryCtaHref = "",
 }: Props) {
+  const pairs = parseHeroSlidePairs(slides);
+  const useSlideshow = pairs.length > 0;
+
   return (
     <section id={anchorId} className="bg-surface">
-      <div className="relative w-full h-[420px] md:h-[560px]">
-        <Image
-          src={image}
-          alt={imageAlt}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+      <div className="relative w-full h-[420px] md:h-[560px] overflow-hidden">
+        {useSlideshow ? (
+          <HeroSlideshow
+            pairs={pairs}
+            beforeDurationSec={beforeDurationSec}
+            afterDurationSec={afterDurationSec}
+            fallbackAlt={imageAlt}
+          />
+        ) : image ? (
+          <Image
+            src={image}
+            alt={imageAlt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        ) : null}
       </div>
       <div className="mx-auto max-w-content px-6 md:px-8 lg:px-16">
         {/* White panel pulled up over the image's lower edge for layered depth. */}
