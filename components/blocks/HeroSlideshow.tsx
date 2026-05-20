@@ -8,6 +8,7 @@ import {
   type HeroSlidePair,
 } from "@/lib/heroSlideshow";
 import type { HeroSlideDirection } from "./useHeroSlideshow";
+import { HeroVignetteOverlay } from "./HeroVignetteOverlay";
 
 type Props = {
   pairs: HeroSlidePair[];
@@ -172,6 +173,8 @@ export function HeroSlideshow({
           priority={index === 0}
         />
       )}
+
+      <HeroVignetteOverlay />
 
       {pairsCount > 1 && (
         <>

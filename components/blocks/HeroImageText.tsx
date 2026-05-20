@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Cta, hasCta } from "./Cta";
 import { parseHeroSlidePairs } from "@/lib/heroSlideshow";
 import { HeroSlideshow } from "./HeroSlideshow";
+import { HeroVignetteOverlay } from "./HeroVignetteOverlay";
 import { useHeroSlideshow } from "./useHeroSlideshow";
 
 /** Matches title panel glow on top and sides only (no shadow on bottom edge). */
@@ -84,14 +85,17 @@ export function HeroImageText({
             onPrev={slideshow.goToPrevPair}
           />
         ) : image ? (
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
+          <>
+            <Image
+              src={image}
+              alt={imageAlt}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+            <HeroVignetteOverlay />
+          </>
         ) : null}
       </div>
 
