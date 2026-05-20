@@ -64,7 +64,7 @@ export default async function RootLayout({
       style={themeStyle}
       className={`${brand.variable} ${display.variable} ${body.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

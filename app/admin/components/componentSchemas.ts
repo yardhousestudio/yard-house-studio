@@ -21,7 +21,7 @@ export const componentSchemas: Record<string, ComponentSchema> = {
     fields: [
       {
         key: "slides",
-        label: "Before / after slideshow pairs",
+        label: "Before / after pairs (auto-rotate after; button reveals before)",
         type: "array",
         itemSchema: [
           { key: "beforeImage", label: "Before image", type: "image" },
@@ -29,18 +29,6 @@ export const componentSchemas: Record<string, ComponentSchema> = {
           { key: "beforeAlt", label: "Before alt text (optional)", type: "text" },
           { key: "afterAlt", label: "After alt text (optional)", type: "text" },
         ],
-      },
-      {
-        key: "beforeDurationSec",
-        label: "Before display duration (seconds)",
-        type: "number",
-        default: 1,
-      },
-      {
-        key: "afterDurationSec",
-        label: "After display duration (seconds)",
-        type: "number",
-        default: 5,
       },
       {
         key: "image",
@@ -57,8 +45,6 @@ export const componentSchemas: Record<string, ComponentSchema> = {
     ],
     defaults: {
       slides: [],
-      beforeDurationSec: 1,
-      afterDurationSec: 5,
       image: "",
       imageAlt: "Edinburgh period architecture",
       headline:
