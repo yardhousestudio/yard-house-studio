@@ -9,8 +9,8 @@ const BEFORE_HOLD_MS = 5000;
 export function useHeroSlideshow(pairs: HeroSlidePair[]) {
   const [index, setIndex] = useState(0);
   const [showBefore, setShowBefore] = useState(false);
-  const autoTimerRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
-  const manualTimerRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  const autoTimerRef = useRef<number | null>(null);
+  const manualTimerRef = useRef<number | null>(null);
 
   const pair = pairs[index] ?? pairs[0]!;
 
