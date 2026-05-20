@@ -6,6 +6,13 @@ import { parseHeroSlidePairs } from "@/lib/heroSlideshow";
 import { HeroSlideshow } from "./HeroSlideshow";
 import { useHeroSlideshow } from "./useHeroSlideshow";
 
+/** Matches title panel glow on top and sides only (no shadow on bottom edge). */
+const HERO_BTN_GLOW =
+  "shadow-[0_-20px_50px_-12px_color-mix(in_srgb,var(--color-frame)_60%,transparent),-18px_-6px_44px_-14px_color-mix(in_srgb,var(--color-frame)_55%,transparent),18px_-6px_44px_-14px_color-mix(in_srgb,var(--color-frame)_55%,transparent)]";
+
+const HERO_BTN_BASE =
+  "font-display not-italic text-small leading-relaxed rounded-t-md rounded-b-none outline-none ring-0 px-2.5 py-1 transition-opacity";
+
 type Props = {
   anchorId?: string;
   image: string;
@@ -91,7 +98,7 @@ export function HeroImageText({
             <button
               type="button"
               onClick={slideshow.showBeforeImage}
-              className="absolute left-0 bottom-full z-30 font-display not-italic text-small text-on-dark leading-relaxed bg-dark hover:bg-dark/95 rounded-t-md rounded-b-none border-0 outline-none ring-0 shadow-none px-2.5 py-1 transition-colors"
+              className={`absolute left-0 bottom-full z-30 ${HERO_BTN_BASE} ${HERO_BTN_GLOW} text-ink-secondary bg-page opacity-100 hover:opacity-95 border-t-0 border-x-0 border-b border-divider`}
             >
               See how it started...
             </button>
