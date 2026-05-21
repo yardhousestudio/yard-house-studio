@@ -1,9 +1,10 @@
-import { Cta } from "./Cta";
+import { Cta, type CtaMode } from "./Cta";
+import { WhatsAppTriggerLink } from "../WhatsAppTriggerLink";
 
 type ContactItem = {
   label: string;
   value: string;
-  type: "email" | "phone" | "text";
+  type: "email" | "phone" | "text" | "whatsapp";
 };
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
   items: ContactItem[];
   ctaLabel?: string;
   ctaHref?: string;
+  ctaMode?: CtaMode;
 };
 
 function hrefFor(item: ContactItem): string | undefined {
@@ -31,6 +33,7 @@ export function CenteredContact({
   items,
   ctaLabel = "",
   ctaHref = "",
+  ctaMode = "link",
 }: Props) {
   return (
     <section
@@ -47,7 +50,12 @@ export function CenteredContact({
         </p>
         {ctaLabel.trim() && (
           <div className="mt-8 flex justify-center">
-            <Cta label={ctaLabel} href={ctaHref} variant="primary" />
+            <Cta
+              label={ctaLabel}
+              href={ctaHref}
+              variant="primary"
+              mode={ctaMode}
+            />
           </div>
         )}
         <ul className="flex flex-col gap-3 mt-12">
@@ -56,7 +64,11 @@ export function CenteredContact({
             return (
               <li key={i} className="font-body text-body text-ink">
                 <span className="text-ink-secondary">{item.label}: </span>
-                {href ? (
+                {item.type === "whatsapp" ? (
+                  <WhatsAppTriggerLink className="text-ink hover:underline underline-offset-4">
+                    {item.value}
+                  </WhatsAppTriggerLink>
+                ) : href ? (
                   <a
                     href={href}
                     className="text-ink hover:underline underline-offset-4"

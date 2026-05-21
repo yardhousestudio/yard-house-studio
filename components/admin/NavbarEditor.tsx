@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { updateNavbar } from "@/app/admin/navigation/actions";
-import type { NavbarRow, NavbarLink } from "@/lib/types";
+import type { NavbarRow, NavbarLink, CtaMode } from "@/lib/types";
 
 const inputClass =
   "font-body text-small text-ink bg-page border border-divider rounded-md px-3 py-2 focus:outline-none focus:border-ink w-full";
@@ -15,6 +15,9 @@ export function NavbarEditor({ navbar }: { navbar: NavbarRow }) {
   );
   const [ctaLabel, setCtaLabel] = useState(navbar.cta_button?.label ?? "");
   const [ctaHref, setCtaHref] = useState(navbar.cta_button?.href ?? "");
+  const [ctaMode, setCtaMode] = useState<CtaMode>(
+    navbar.cta_button?.mode ?? "link",
+  );
   const [busy, setBusy] = useState(false);
   const [feedback, setFeedback] = useState("");
 
@@ -41,7 +44,7 @@ export function NavbarEditor({ navbar }: { navbar: NavbarRow }) {
         logo: { text: logoText, href: logoHref },
         links: links.map((l, i) => ({ label: l.label, href: l.href, order: i })),
         cta_button: ctaLabel.trim()
-          ? { label: ctaLabel, href: ctaHref }
+          ? { label: ctaLabel, href: ctaHref, mode: ctaMode }
           : null,
       });
       setFeedback("Saved — the live site has been updated.");
@@ -168,9 +171,29 @@ export function NavbarEditor({ navbar }: { navbar: NavbarRow }) {
                 setFeedback("");
               }}
               className={inputClass}
+              disabled={ctaMode === "whatsapp-router"}
+              placeholder={
+                ctaMode === "whatsapp-router"
+                  ? "Ignored — opens WhatsApp router"
+                  : ""
+              }
             />
           </label>
         </div>
+        <label className="flex flex-col gap-1.5">
+          <span className="font-body text-small text-ink-secondary">Action</span>
+          <select
+            value={ctaMode}
+            onChange={(e) => {
+              setCtaMode(e.target.value as CtaMode);
+              setFeedback("");
+            }}
+            className={inputClass}
+          >
+            <option value="link">Standard link</option>
+            <option value="whatsapp-router">Open WhatsApp router</option>
+          </select>
+        </label>
       </section>
 
       <div className="flex items-center gap-3">

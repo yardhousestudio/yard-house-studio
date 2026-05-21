@@ -3,6 +3,11 @@ import type { Metadata } from "next";
 import { Instrument_Serif, DM_Serif_Display, Inter } from "next/font/google";
 import { createClient } from "@supabase/supabase-js";
 import { themeToCssVars, type ThemeColors } from "@/lib/theme";
+import { WhatsAppRouterProvider } from "@/components/WhatsAppRouterProvider";
+import { WhatsAppRouter } from "@/components/WhatsAppRouter";
+import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
+import { getWhatsAppSettings } from "@/lib/whatsapp.server";
+import { hasWhatsAppNumber } from "@/lib/whatsapp";
 import "./globals.css";
 
 // Fetch the editable colour palette and turn it into CSS variables.
@@ -57,14 +62,29 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const themeStyle = await getThemeStyle();
+  const [themeStyle, whatsapp] = await Promise.all([
+    getThemeStyle(),
+    getWhatsAppSettings(),
+  ]);
+  const whatsAppAvailable = hasWhatsAppNumber(whatsapp);
+
   return (
     <html
       lang="en"
       style={themeStyle}
       className={`${brand.variable} ${display.variable} ${body.variable} antialiased`}
     >
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <WhatsAppRouterProvider
+          floatingEnabled={whatsapp.floating_enabled}
+          whatsAppAvailable={whatsAppAvailable}
+          modalOptions={whatsapp.modal_options}
+        >
+          {children}
+          <WhatsAppFloatingButton />
+          <WhatsAppRouter />
+        </WhatsAppRouterProvider>
+      </body>
     </html>
   );
 }

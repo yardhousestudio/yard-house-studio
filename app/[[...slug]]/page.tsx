@@ -79,7 +79,10 @@ export default async function Page(props: { params: Promise<SlugParams> }) {
       .eq("slug", path)
       .eq("published", true)
       .single<PageRecord>(),
-    supabase.from("site_variables").select("key, value"),
+    supabase
+      .from("site_variables")
+      .select("key, value")
+      .not("key", "ilike", "WHATSAPP_%"),
   ]);
 
   if (!page) notFound();

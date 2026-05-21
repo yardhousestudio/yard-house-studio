@@ -1,4 +1,4 @@
-import { Cta, hasCta } from "./Cta";
+import { Cta, hasCta, type CtaMode } from "./Cta";
 
 type Props = {
   anchorId?: string;
@@ -7,6 +7,7 @@ type Props = {
   subtitle?: string;
   primaryCtaLabel?: string;
   primaryCtaHref?: string;
+  primaryCtaMode?: CtaMode;
   secondaryCtaLabel?: string;
   secondaryCtaHref?: string;
 };
@@ -20,6 +21,7 @@ export function PageHero({
   subtitle = "",
   primaryCtaLabel = "",
   primaryCtaHref = "",
+  primaryCtaMode = "link",
   secondaryCtaLabel = "",
   secondaryCtaHref = "",
 }: Props) {
@@ -48,6 +50,7 @@ export function PageHero({
               label={primaryCtaLabel}
               href={primaryCtaHref}
               variant="primary"
+              mode={primaryCtaMode}
             />
             <Cta
               label={secondaryCtaLabel}

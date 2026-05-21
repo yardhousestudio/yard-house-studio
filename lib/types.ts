@@ -15,8 +15,13 @@ export type Field = {
   label: string;
   type: FieldType;
   options?: string[];
+  /** Friendly labels for select options (key = stored value). */
+  optionLabels?: Record<string, string>;
   default?: unknown;
   itemSchema?: Field[];
+  /** Disable this field when another prop equals `value`. */
+  disabledWhen?: { key: string; value: string };
+  disabledHint?: string;
 };
 
 export type ComponentInstance = {
@@ -44,9 +49,11 @@ export type PageRow = {
 
 export type NavbarLink = { label: string; href: string; order: number };
 
+export type CtaMode = "link" | "whatsapp-router";
+
 export type NavbarRow = {
   id: number;
   logo: { text: string; href: string };
   links: NavbarLink[];
-  cta_button: { label: string; href: string } | null;
+  cta_button: { label: string; href: string; mode?: CtaMode } | null;
 };

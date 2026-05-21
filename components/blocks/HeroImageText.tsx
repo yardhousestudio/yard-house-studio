@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Cta, hasCta } from "./Cta";
+import { Cta, hasCta, type CtaMode } from "./Cta";
 import { parseHeroSlidePairs } from "@/lib/heroSlideshow";
 import { HeroSlideshow } from "./HeroSlideshow";
 import { HeroVignetteOverlay } from "./HeroVignetteOverlay";
@@ -23,6 +23,7 @@ type Props = {
   subtitle: string;
   primaryCtaLabel?: string;
   primaryCtaHref?: string;
+  primaryCtaMode?: CtaMode;
   secondaryCtaLabel?: string;
   secondaryCtaHref?: string;
 };
@@ -36,6 +37,7 @@ export function HeroImageText({
   subtitle,
   primaryCtaLabel = "",
   primaryCtaHref = "",
+  primaryCtaMode = "link",
   secondaryCtaLabel = "",
   secondaryCtaHref = "",
 }: Props) {
@@ -57,6 +59,7 @@ export function HeroImageText({
             label={primaryCtaLabel}
             href={primaryCtaHref}
             variant="primary"
+            mode={primaryCtaMode}
           />
           <Cta
             label={secondaryCtaLabel}

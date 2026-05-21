@@ -9,6 +9,7 @@ import {
   ImageIcon,
   GearIcon,
   ColorWheelIcon,
+  ChatBubbleIcon,
 } from "@radix-ui/react-icons";
 import { signOut } from "@/app/admin/actions";
 
@@ -18,6 +19,7 @@ const NAV = [
   { label: "Navigation", href: "/admin/navigation", icon: LayersIcon },
   { label: "Media", href: "/admin/media", icon: ImageIcon },
   { label: "Variables", href: "/admin/variables", icon: GearIcon },
+  { label: "WhatsApp", href: "/admin/whatsapp", icon: ChatBubbleIcon },
   { label: "Colours", href: "/admin/theme", icon: ColorWheelIcon },
 ];
 

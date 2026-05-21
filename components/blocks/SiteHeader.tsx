@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import type { NavbarRow } from "@/lib/types";
+import { WhatsAppTriggerLink } from "../WhatsAppTriggerLink";
 
 type Props = {
   sticky?: boolean;
@@ -41,14 +42,19 @@ export async function SiteHeader({ sticky = true, withBlur = true }: Props) {
               {link.label}
             </Link>
           ))}
-          {cta && (
-            <Link
-              href={cta.href}
-              className="font-body text-small bg-ink text-on-dark px-4 py-2 rounded-full hover:opacity-90 transition-opacity"
-            >
-              {cta.label}
-            </Link>
-          )}
+          {cta &&
+            (cta.mode === "whatsapp-router" ? (
+              <WhatsAppTriggerLink className="font-body text-small bg-ink text-on-dark px-4 py-2 rounded-full hover:opacity-90 transition-opacity">
+                {cta.label}
+              </WhatsAppTriggerLink>
+            ) : (
+              <Link
+                href={cta.href}
+                className="font-body text-small bg-ink text-on-dark px-4 py-2 rounded-full hover:opacity-90 transition-opacity"
+              >
+                {cta.label}
+              </Link>
+            ))}
         </nav>
       </div>
     </header>

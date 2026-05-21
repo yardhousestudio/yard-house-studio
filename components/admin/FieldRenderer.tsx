@@ -8,6 +8,14 @@ type Values = Record<string, unknown>;
 const inputClass =
   "font-body text-small text-ink bg-page border border-divider rounded-md px-3 py-2 focus:outline-none focus:border-ink w-full";
 
+const inputDisabledClass =
+  "font-body text-small text-ink-muted bg-surface border border-divider rounded-md px-3 py-2 w-full cursor-not-allowed opacity-70";
+
+function isDisabled(field: Field, values: Values): boolean {
+  if (!field.disabledWhen) return false;
+  return values[field.disabledWhen.key] === field.disabledWhen.value;
+}
+
 export function FieldRenderer({
   fields,
   values,
@@ -23,6 +31,7 @@ export function FieldRenderer({
         <SingleField
           key={field.key}
           field={field}
+          values={values}
           value={values[field.key]}
           onChange={(v) => onChange(field.key, v)}
         />
@@ -41,13 +50,17 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
 
 function SingleField({
   field,
+  values,
   value,
   onChange,
 }: {
   field: Field;
+  values: Values;
   value: unknown;
   onChange: (value: unknown) => void;
 }) {
+  const disabled = isDisabled(field, values);
+
   if (field.type === "array") {
     return (
       <ArrayField
@@ -66,8 +79,15 @@ function SingleField({
           rows={4}
           value={String(value ?? "")}
           onChange={(e) => onChange(e.target.value)}
-          className={`${inputClass} resize-y leading-relaxed`}
+          disabled={disabled}
+          placeholder={disabled ? (field.disabledHint ?? "") : undefined}
+          className={`${disabled ? inputDisabledClass : inputClass} resize-y leading-relaxed`}
         />
+        {disabled && field.disabledHint ? (
+          <span className="font-body text-label text-ink-secondary">
+            {field.disabledHint}
+          </span>
+        ) : null}
       </label>
     );
   }
@@ -91,13 +111,13 @@ function SingleField({
       <label className="flex flex-col gap-1.5">
         <FieldLabel>{field.label}</FieldLabel>
         <select
-          value={String(value ?? "")}
+          value={String(value ?? field.default ?? "")}
           onChange={(e) => onChange(e.target.value)}
           className={inputClass}
         >
           {(field.options ?? []).map((opt) => (
             <option key={opt} value={opt}>
-              {opt}
+              {field.optionLabels?.[opt] ?? opt}
             </option>
           ))}
         </select>
@@ -115,13 +135,32 @@ function SingleField({
           onChange={(e) =>
             onChange(e.target.value === "" ? "" : Number(e.target.value))
           }
-          className={inputClass}
+          disabled={disabled}
+          className={disabled ? inputDisabledClass : inputClass}
         />
       </label>
     );
   }
 
   if (field.type === "image") {
+    if (disabled) {
+      return (
+        <label className="flex flex-col gap-1.5">
+          <FieldLabel>{field.label}</FieldLabel>
+          <input
+            type="text"
+            value={String(value ?? "")}
+            disabled
+            className={inputDisabledClass}
+          />
+          {field.disabledHint ? (
+            <span className="font-body text-label text-ink-secondary">
+              {field.disabledHint}
+            </span>
+          ) : null}
+        </label>
+      );
+    }
     return (
       <ImageFieldInput
         label={field.label}
@@ -136,11 +175,24 @@ function SingleField({
     <label className="flex flex-col gap-1.5">
       <FieldLabel>{field.label}</FieldLabel>
       <input
-        type={field.type === "date" ? "date" : field.type === "color" ? "color" : "text"}
+        type={
+          field.type === "date"
+            ? "date"
+            : field.type === "color"
+              ? "color"
+              : "text"
+        }
         value={String(value ?? "")}
         onChange={(e) => onChange(e.target.value)}
-        className={inputClass}
+        disabled={disabled}
+        placeholder={disabled ? (field.disabledHint ?? "") : undefined}
+        className={disabled ? inputDisabledClass : inputClass}
       />
+      {disabled && field.disabledHint ? (
+        <span className="font-body text-label text-ink-secondary">
+          {field.disabledHint}
+        </span>
+      ) : null}
     </label>
   );
 }
@@ -155,8 +207,6 @@ function ArrayField({
   onChange: (value: unknown[]) => void;
 }) {
   const itemSchema = field.itemSchema ?? [];
-  // An itemSchema of a single empty-key field means the items are plain
-  // strings (e.g. dark-two-column paragraphs), not objects.
   const isScalar = itemSchema.length === 1 && itemSchema[0].key === "";
 
   function makeDefaultItem(): unknown {
